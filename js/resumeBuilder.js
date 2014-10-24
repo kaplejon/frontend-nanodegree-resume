@@ -9,8 +9,12 @@ $("#header").prepend(formattedName);
 
 var bio = {
   "name": "Lee Tratnyek",
+  "contacts": {
+      "location": "Annapolis, MD"
+    },
   "role": "Web Developer",
   "phone": "610.762.6077",
+  "pic": "fry.jpg",
   "skills": [
     "JavaScript",
     "HTML",
@@ -51,18 +55,20 @@ var education = {
   "schools": [
     {
       "name": "Northampton Community College",
-      "city": "Bethlehem, PA",
+      "location": "Bethlehem, PA",
       "degree": "AAS",
       "major": "Web Application Development"
     },
     {
       "name": "The George Washinton University",
-      "city": "Washington, D.C.",
+      "location": "Washington, D.C.",
       "degree": "BA",
       "major": "English with Creative Writing"
     }
   ]
 };
+
+var projects = {};
 
 
 if (bio.skills.length > 0) {
@@ -72,13 +78,32 @@ if (bio.skills.length > 0) {
   }
 }
 
-if (work.jobs.length > 0) {
-  for (var i = 0; i < work.jobs.length; i++) {
+
+function displayWork() {
+  for (job in work.jobs) {
     $("#workExperience").append(HTMLworkStart);
-    var formattedJobEmployer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer),
-        formattedJobTitle = HTMLworkTitle.replace("%data%", work.jobs[i].title);
+    var formattedJobEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer),
+        formattedJobTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
     $(".work-entry:last").append(formattedJobEmployer + formattedJobTitle);
-    //$("#workExperience").append(HTMLworkEmployer.replace("%data%", work.jobs[i].employer));
-    //$("#workExperience").append(HTMLworkTitle.replace("%data%", work.jobs[i].title));
   }
 }
+
+displayWork();
+
+function inName(name) {
+  name = name.trim().split(" ");
+  console.log(name);
+  name[1] = name[1].toUpperCase();
+  name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+  return name[0] + " " + name[1];
+}
+
+$("#main").append(internationalizeButton);
+
+projects.display = function() {
+  for (project in projects.projects) {
+    $("#projects").append(HTMLprojectStart)
+  }
+}
+
+$("#mapDiv").append(googleMap);
